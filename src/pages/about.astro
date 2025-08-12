@@ -1,4 +1,6 @@
 ---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
 const pageTitle = "Sobre Mí";
 
 const identity = {
@@ -17,59 +19,65 @@ const skills = [
   "Redacción de documentos",
 ];
 
+const skillColor = "navy";
+const textWeight = "bold";
+const textTransform = "uppercase";
+
 const happy = true;
 const finished = false;
 const goal = 3;
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>{pageTitle}</title>
-  </head>
-  <body>
-    <a href="/">Inicio</a>
-    <a href="/about/">Sobre mi</a>
-    <a href="/blog/">Blog</a>
+<style define:vars={{ skillColor, textWeight, textTransform }}>
+  h1 {
+    color: purple;
+    font-size: 4rem;
+  }
 
-    <h1>Sobre Mi</h1>
-    <h2>{pageTitle}</h2>
+  .skill {
+    color: var(--skillColor);
+    font-weight: var(--textWeight);
+    text-transform: var(--textTransform);
+  }
+</style>
 
-    <p>Estyo haciendo un tutorial de Atro.</p>
+<BaseLayout pageTitle={pageTitle}>
+  <h1>Sobre Mi</h1>
+  <h2>{pageTitle}</h2>
 
-    <p>Este sitio esta bien 🦎🦎🦎</p>
+  <p>Estyo haciendo un tutorial de Atro.</p>
 
-    <p>He aquí algunos datos sobre mí:</p>
-    <ul>
-      <li>Me llamo {identity.firstName}.</li>
-      <li>Vivo en {identity.country} y trabajo como {identity.occupation}.</li>
-      {
-        identity.hobbies.length >= 2 && (
-          <li>
-            Dos de mis aficiones son: {identity.hobbies[0]} y{" "}
-            {identity.hobbies[1]}
-          </li>
-        )
-      }
-    </ul>
-    <p>Mis habilidades son:</p>
-    <ul>
-      {skills.map((skill) => <li>{skill}</li>)}
-    </ul>
+  <p>Este sitio esta bien 🦎🦎🦎</p>
 
-    {happy && <p>¡Estoy feliz de aprender Astro!</p>}
-
-    {finished && <p>¡He terminado este tutorial!</p>}
-
+  <p>He aquí algunos datos sobre mí:</p>
+  <ul>
+    <li>Me llamo {identity.firstName}.</li>
+    <li>
+      Vivo en {identity.country} y trabajo como {identity.occupation}.
+    </li>
     {
-      goal === 3 ? (
-        <p>Mi objetivo es terminar en 3 días.</p>
-      ) : (
-        <p>Mi objetivo no son 3 días.</p>
+      identity.hobbies.length >= 2 && (
+        <li>
+          Dos de mis aficiones son: {identity.hobbies[0]} y{" "}
+          {identity.hobbies[1]}
+        </li>
       )
     }
-  </body>
-</html>
+  </ul>
+  <p>Mis habilidades son:</p>
+  <ul>
+    {skills.map((skill) => <li class="skill">{skill}</li>)}
+  </ul>
+
+  {happy && <p>¡Estoy feliz de aprender Astro!</p>}
+
+  {finished && <p>¡He terminado este tutorial!</p>}
+
+  {
+    goal === 3 ? (
+      <p>Mi objetivo es terminar en 3 días.</p>
+    ) : (
+      <p>Mi objetivo no son 3 días.</p>
+    )
+  }
+</BaseLayout>
